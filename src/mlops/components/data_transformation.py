@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 import os
 import sys
-from src.mlops.logger.logger import log
+from mlops.logger.logger import log
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -10,15 +10,16 @@ from sklearn.compose import ColumnTransformer
 from sklearn.impute import SimpleImputer
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import OrdinalEncoder, StandardScaler
+from mlops.utils.common import save_object
 
 
 @dataclass
-class DataTransformation: 
+class DataTransformation_config: 
     preprocessor_obj_file_path=os.path.join('artifacts','preprocessor.pkl')
 
 class DataTransformation: 
     def __init__(self):
-        self.data_transformation_config=DataTransformation()
+        self.data_transformation_config=DataTransformation_config()
 
     
     def get_data_transformation(self): 
@@ -54,31 +55,35 @@ class DataTransformation:
             raise e
         
     def initiate_data_Transformation(self, train_path, test_path): 
-        train_data=pd.read_csv(train_path)
-        test_data=pd.read_csv(test_path)
+        try: 
+            train_data=pd.read_csv(train_path)
+            test_data=pd.read_csv(test_path)
 
-        preprocessor=self.get_data_transformation()
+            preprocessor=self.get_data_transformation()
 
-        target_column='price'
-        drop_column='id'
+            target_column='price'
+            drop_column='id'
 
-        input_feature_train_df=train_data.drop(drop_column, axis=1)
-        target_feature_train_df=train_data[target_column]
+            input_feature_train_df=train_data.drop(drop_column, axis=1)
+            target_feature_train_df=train_data[target_column]
 
-        input_feature_test_df=test_data.drop(drop_column, axis=1)
-        target_feature_test_df=test_data[target_column]
+            input_feature_test_df=test_data.drop(drop_column, axis=1)
+            target_feature_test_df=test_data[target_column]
 
-        input_feature_train_arr=preprocessor.fit_transform(input_feature_train_df)
-        input_feature_test_arr=preprocessor.fit_transform(input_feature_test_df)
-
-
-        train_arr=np.c_[input_feature_train_arr, np.array(target_feature_train_df)]
-        test_arr=np.c_[input_feature_test_df, np.array(target_feature_test_df)]
-
-        log.info(f"Training array after transformation: {train_arr[0:5]}")
-        log.info(f"Testing array after transformation : {test_arr[0:4]}")
+            input_feature_train_arr=preprocessor.fit_transform(input_feature_train_df)
+            input_feature_test_arr=preprocessor.fit_transform(input_feature_test_df)
 
 
+            train_arr=np.c_[input_feature_train_arr, np.array(target_feature_train_df)]
+            test_arr=np.c_[input_feature_test_df, np.array(target_feature_test_df)]
 
+            log.info(f"Training array after transformation: {train_arr[0:5]}")
+            log.info(f"Testing array after transformation : {test_arr[0:4]}")
 
-
+            save_object(file_path=self.data_transformation_config.preprocessor_obj_file_path,
+                            obj=preprocessor)
+                
+            return (train_arr, test_arr)
+        except Exception as e: 
+            raise e
+            
