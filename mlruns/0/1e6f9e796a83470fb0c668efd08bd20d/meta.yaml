@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/abishekkumaryadav/DataScience/Machine_learning/mlops_implementation/mlruns/0/1e6f9e796a83470fb0c668efd08bd20d/artifacts
+end_time: 1717811316816
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 1e6f9e796a83470fb0c668efd08bd20d
+run_name: rare-chimp-769
+run_uuid: 1e6f9e796a83470fb0c668efd08bd20d
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1717811314916
+status: 3
+tags: []
+user_id: abishekkumaryadav

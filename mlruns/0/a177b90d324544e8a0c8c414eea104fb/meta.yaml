@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/abishekkumaryadav/DataScience/Machine_learning/mlops_implementation/mlruns/0/a177b90d324544e8a0c8c414eea104fb/artifacts
+end_time: 1717946223678
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: a177b90d324544e8a0c8c414eea104fb
+run_name: delightful-cod-662
+run_uuid: a177b90d324544e8a0c8c414eea104fb
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1717946221826
+status: 3
+tags: []
+user_id: abishekkumaryadav

@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/abishekkumaryadav/DataScience/Machine_learning/mlops_implementation/mlruns/0/d05d7877fc944b3994a05801805a740d/artifacts
+end_time: 1717811285624
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: d05d7877fc944b3994a05801805a740d
+run_name: clumsy-bird-195
+run_uuid: d05d7877fc944b3994a05801805a740d
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1717811285604
+status: 4
+tags: []
+user_id: abishekkumaryadav
