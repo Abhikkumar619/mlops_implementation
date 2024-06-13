@@ -1,0 +1,41 @@
+FROM python:3.8-slim-buster
+
+# Set the user to root
+USER root
+
+# Create and set the working directory
+RUN mkdir /app
+WORKDIR /app
+
+# Copy the application code to the working directory
+COPY . /app/
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    python3-dev \
+    libffi-dev \
+    libssl-dev \
+    gcc \
+    && rm -rf /var/lib/apt/lists/*
+
+# Upgrade pip and install Python dependencies
+RUN pip install --upgrade pip
+RUN pip install -r requirements.txt
+
+# Set environment variables for Airflow
+ENV AIRFLOW_HOME="/app/airflow"
+ENV AIRFLOW_CORE_DAGBAG_IMPORT_TIMEOUT=1000
+ENV AIRFLOW_CORE_ENABLE_XCOM_PICKLING=True
+
+# Initialize the Airflow database and create an admin user
+RUN airflow db init
+RUN airflow users create -e abisheky194@gmail.com -f abishek -l yadav -p admin -r Admin -u admin
+
+# Set permissions and install additional system dependencies
+RUN chmod 777 start.sh
+RUN apt-get update -y
+
+# Set the entrypoint and default command
+ENTRYPOINT [ "/bin/sh" ]
+CMD [ "start.sh" ]

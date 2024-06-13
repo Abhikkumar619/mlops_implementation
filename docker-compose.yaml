@@ -1,0 +1,10 @@
+version: '3'
+services:
+  flaskapp:
+    build:
+      context: ./
+      dockerfile: Dockerfile.flask
+    image: flaskimage
+    container_name: games-stone-flask
+    ports:
+      - "8000:8000"
